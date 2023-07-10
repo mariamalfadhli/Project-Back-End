@@ -9,6 +9,7 @@ const {
 const router = express.Router();
 
 const passport = require("passport");
+const upload = require("../../middlewares/uploader");
 
 router.param("recipeId", async (req, res, next, recipeId) => {
   try {
@@ -26,6 +27,7 @@ router.get("/", getRecipe);
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  upload.single("categImage"),
   createRecipe
 );
 

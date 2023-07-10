@@ -8,6 +8,7 @@ const {
 } = require("./controllers");
 const router = express.Router();
 const passport = require("passport");
+const upload = require("../../middlewares/uploader");
 router.param("categoryId", async (req, res, next, categoryId) => {
   try {
     const foundCategory = await fetchCategory(categoryId);
@@ -24,6 +25,7 @@ router.get("/", getCategory);
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  upload.single("categImage"),
   createCategory
 );
 
