@@ -28,3 +28,21 @@ exports.createIngredient = async (req, res, next) => {
     return res.status(500).json(err.message);
   }
 };
+
+exports.updateIngredient = async (req, res, next) => {
+  try {
+    await Ingredient.findByIdAndUpdate(req.ingredient.id, req.body);
+    return res.status(204).end();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.deleteIngredient = async (req, res, next) => {
+  try {
+    await Ingredient.findByIdAndRemove({ _id: req.ingredient.id });
+    return res.status(204).end();
+  } catch (error) {
+    return next(error);
+  }
+};

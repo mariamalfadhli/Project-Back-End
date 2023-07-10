@@ -1,6 +1,14 @@
 const express = require("express");
-const createRecipe = require("./controllers");
+const {
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+  getRecipe,
+  fetchRecipe,
+} = require("./controllers");
 const router = express.Router();
+
+const passport = require("passport");
 
 router.param("recipeId", async (req, res, next, recipeId) => {
   try {
@@ -13,10 +21,19 @@ router.param("recipeId", async (req, res, next, recipeId) => {
   }
 });
 
+router.get("/", getRecipe);
+
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   createRecipe
 );
 
+router.put("/", passport.authenticate("jwt", { session: false }), updateRecipe);
+
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  deleteRecipe
+);
 module.exports = router;

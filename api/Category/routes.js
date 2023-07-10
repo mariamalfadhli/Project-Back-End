@@ -1,5 +1,11 @@
 const express = require("express");
-const { getCategory, createCategory, fetchCategory } = require("./controllers");
+const {
+  getCategory,
+  createCategory,
+  fetchCategory,
+  updateCategory,
+  deleteCategory,
+} = require("./controllers");
 const router = express.Router();
 const passport = require("passport");
 router.param("categoryId", async (req, res, next, categoryId) => {
@@ -17,6 +23,19 @@ router.param("categoryId", async (req, res, next, categoryId) => {
 router.get("/", getCategory);
 router.post(
   "/",
-  passport.authenticate("jwt", { session: fasle }),
+  passport.authenticate("jwt", { session: false }),
   createCategory
 );
+
+router.put(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  updateCategory
+);
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  deleteCategory
+);
+
+module.exports = router;

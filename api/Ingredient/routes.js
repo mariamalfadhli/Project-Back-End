@@ -3,8 +3,11 @@ const {
   getIngredients,
   createIngredient,
   fetchIngredient,
+  updateIngredient,
+  deleteIngredient,
 } = require("./controllers");
 const router = express.Router();
+const passport = require("passport");
 
 router.param("ingredientId", async (req, res, next, ingredientId) => {
   try {
@@ -19,4 +22,20 @@ router.param("ingredientId", async (req, res, next, ingredientId) => {
 });
 
 router.get("/", getIngredients);
-router.post("/", createIngredient);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  createIngredient
+);
+router.put(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  updateIngredient
+);
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  deleteIngredient
+);
+
+module.exports = router;

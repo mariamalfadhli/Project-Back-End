@@ -34,3 +34,21 @@ exports.createCategory = async (req, res, next) => {
     return res.status(500).json(err.message);
   }
 };
+
+exports.updateCategory = async (req, res, next) => {
+  try {
+    await Category.findByIdAndUpdate(req.category.id, req.body);
+    return res.status(204).end();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.deleteCategory = async (req, res, next) => {
+  try {
+    await Category.findByIdAndRemove({ _id: req.category.id });
+    return res.status(204).end();
+  } catch (error) {
+    return next(error);
+  }
+};

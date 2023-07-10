@@ -3,14 +3,14 @@ const bcrypt = require("bcrypt");
 const JWTStrategy = require("passport-jwt").Strategy;
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt").ExtractJwt;
 const config = require("../config/keys");
-const User = require("../models/User");
+const User = require("../db/models/User");
 
 exports.localStrategy = new LocalStrategy(
-  { usernameField: "usernameOrEmail" },
-  async (usernameOrEmail, password, done) => {
+  { usernameField: "email" },
+  async (email, password, done) => {
     try {
       const user = await User.findOne({
-        $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        email: email,
       });
       if (!user) {
         return done(null, false);
