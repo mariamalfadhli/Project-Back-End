@@ -5,6 +5,7 @@ const {
   deleteRecipe,
   getRecipe,
   fetchRecipe,
+  addCategoryToRecipe,
 } = require("./controllers");
 const router = express.Router();
 
@@ -27,15 +28,21 @@ router.get("/", getRecipe);
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  upload.single("categImage"),
+  upload.single("recImage"),
   createRecipe
 );
 
-router.put("/", passport.authenticate("jwt", { session: false }), updateRecipe);
-
-router.delete(
-  "/",
+router.put(
+  "/:recipeId/:categoryId",
   passport.authenticate("jwt", { session: false }),
-  deleteRecipe
+  addCategoryToRecipe
 );
+
+// router.put("/", passport.authenticate("jwt", { session: false }), updateRecipe);
+
+// router.delete(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   deleteRecipe
+// );
 module.exports = router;

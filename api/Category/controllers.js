@@ -20,9 +20,6 @@ exports.getCategory = async (req, res, next) => {
 
 exports.createCategory = async (req, res, next) => {
   try {
-    if (req.file) {
-      req.body.categImage = req.file.path;
-    }
     const newCategory = await Category.create(req.body);
     res.status(201).json(newCategory);
   } catch (err) {
@@ -30,20 +27,20 @@ exports.createCategory = async (req, res, next) => {
   }
 };
 
-exports.updateCategory = async (req, res, next) => {
-  try {
-    await Category.findByIdAndUpdate(req.category.id, req.body);
-    return res.status(204).end();
-  } catch (error) {
-    return next(error);
-  }
-};
+// exports.updateCategory = async (req, res, next) => {
+//   try {
+//     await Category.findByIdAndUpdate(req.category.id, req.body);
+//     return res.status(204).end();
+//   } catch (error) {
+//     return next(error);
+//   }
+// };
 
-exports.deleteCategory = async (req, res, next) => {
-  try {
-    await Category.findByIdAndRemove({ _id: req.category.id });
-    return res.status(204).end();
-  } catch (error) {
-    return next(error);
-  }
-};
+// exports.deleteCategory = async (req, res, next) => {
+//   try {
+//     await Category.findByIdAndRemove({ _id: req.category.id });
+//     return res.status(204).end();
+//   } catch (error) {
+//     return next(error);
+//   }
+// };

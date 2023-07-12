@@ -25,19 +25,18 @@ router.get("/", getCategory);
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  upload.single("categImage"),
   createCategory
 );
 
-router.put(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  updateCategory
-);
-router.delete(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  deleteCategory
-);
+// router.put(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   updateCategory
+// );
+// router.delete(
+//   "/",
+//   passport.authenticate("jwt", { session: false }),
+//   deleteCategory
+// );
 
 module.exports = router;
